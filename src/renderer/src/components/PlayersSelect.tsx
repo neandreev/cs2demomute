@@ -1,36 +1,37 @@
-import { useStore } from "@renderer/store";
-// import { Input } from "./ui/input";
-// import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+import { useStore } from '@renderer/store'
+import { Button } from './ui/button'
 
-export default function PlayersSelect() {
-  const {players, goToResultPage, selectedValues, toggleSelectedValue} = useStore()
+const PlayersSelect = (): JSX.Element => {
+  const { players, goToResultPage, selectedValues, toggleSelectedValue } = useStore()
 
-  return <div className="flex">
-    <div className="flex">
-    {Object.entries(players).map(([playerName, playerValue]) => {
-      console.log('playerValue', playerValue)
-      console.log('playerName', playerName)
-      const isButtonSelected = selectedValues.has(playerValue)
+  return (
+    <div className="flex flex-col gap-4">
+      <p>Выберите игроков:</p>
+      <div className="flex">
+        <div className="grid grid-cols-2 w-l gap-2">
+          {Object.entries(players).map(([playerName, playerValue]) => {
+            const isButtonSelected = selectedValues.has(playerValue)
 
-      console.log('isButtonSelected', isButtonSelected)
-
-      return (
-        <Button
-          key={playerValue}
-          variant={isButtonSelected ? 'secondary' : 'default'}
-          onClick={() => toggleSelectedValue(playerValue)}
-        >
-          {playerName}
+            return (
+              <Button
+                key={playerValue}
+                variant={isButtonSelected ? 'default' : 'outline'}
+                onClick={() => toggleSelectedValue(playerValue)}
+                className="w-48"
+              >
+                <p className="truncate">{playerName}</p>
+              </Button>
+            )
+          })}
+        </div>
+      </div>
+      <div className="flex justify-end">
+        <Button variant="outline" className="w-16" onClick={() => goToResultPage()}>
+          Далее
         </Button>
-      )
-    })}
+      </div>
     </div>
-    <button
-      className="w-16"
-      onClick={() => goToResultPage()}
-    >
-      Результат
-    </button>
-  </div>
+  )
 }
+
+export default PlayersSelect

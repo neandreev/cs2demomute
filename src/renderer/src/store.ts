@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { toast } from 'sonner'
 
 export enum AppState {
   Input = 0,
@@ -12,15 +13,15 @@ interface Players {
 
 interface StoreState {
   appState: AppState
-  setAppState: (appState: AppState) => void
   stringToParse: string
-  setStringToParse: (stringToParse: string) => void
   players: Players
-  setPlayers: (players: Players) => void
   selectedValues: Set<number>
+  resultString: string
+  setAppState: (appState: AppState) => void
+  setStringToParse: (stringToParse: string) => void
+  setPlayers: (players: Players) => void
   toggleSelectedValue: (value: number) => void
   parseString: () => void
-  resultString: string
   generateResultString: () => void
   goToSelectPage: () => void
   goToResultPage: () => void
@@ -30,10 +31,7 @@ interface StoreState {
 const isFirstCharNum = (str): boolean => str.match(new RegExp(/^\d/)) !== null
 const splitPlayersMuteValues = (stringArr): Players => {
   return stringArr.reduce((players: Players, string: string) => {
-    const [_, muteValue, player] = string.match(/^\s*(\d*)\s*(.+)/)!
-
-    // console.log('result', result)
-    // const [_, muteValue, player] = result
+    const [, muteValue, player] = string.match(/^\s*(\d*)\s*(.+)/)!
 
     return { ...players, [player]: Number(muteValue) }
   }, {})
@@ -41,26 +39,36 @@ const splitPlayersMuteValues = (stringArr): Players => {
 
 export const useStore = create<StoreState>((set, get) => ({
   appState: AppState.Input,
-  setAppState: (appState: AppState): void => set({ appState }),
   stringToParse: `Player#     Player Name
--------     ----------------
-  3         donk666
-  4         MaSvAl
-  5         Koriw
-  6         -FpSSSSSSSSS
-  7         tENZY
-  8         Aliot
-  9         Sp4rkesss
-  10         NoBless
-  11         NAPAD
-  12         EATyourEGO
--------     ----------------`,
-  setStringToParse: (stringToParse): void => {
-    console.log(stringToParse)
-    set({ stringToParse })
-  },
+  -------     ----------------
+    3         donk666
+    4         MaSvAl
+    5         Koriw
+    6         -FpSSSSSSSSS
+    7         tENZY
+    8         Aliot
+    9         Sp4rkesss
+    10         NoBless
+    11         NAPAD
+    12         EATyourEGO
+  -------     ----------------`,
   players: {},
+  selectedValues: new Set([]),
+  resultString: '',
+  setAppState: (appState: AppState): void => set({ appState }),
+  setStringToParse: (stringToParse): void => set({ stringToParse }),
   setPlayers: (players: Players): void => set({ players }),
+  toggleSelectedValue: (value): void => {
+    const selectedValues = get().selectedValues
+
+    if (selectedValues.has(value)) {
+      selectedValues.delete(value)
+    } else {
+      selectedValues.add(value)
+    }
+
+    set({ selectedValues })
+  },
   parseString: (): void => {
     const stringToParse = get().stringToParse
 
@@ -73,39 +81,23 @@ export const useStore = create<StoreState>((set, get) => ({
 
     set({ players })
   },
-  selectedValues: new Set([]),
-  toggleSelectedValue: (value): void => {
-    const selectedValues = get().selectedValues
-
-    if (selectedValues.has(value)) {
-      selectedValues.delete(value)
-    } else {
-      selectedValues.add(value)
-    }
-
-    set({ selectedValues })
-
-    console.log('selectedValues', selectedValues)
-  },
-  resultString: '',
   generateResultString: (): void => {
     const selectedValues = get().selectedValues
 
-    const indicesValue = selectedValues.values().reduce((acc, cur) => {
-      return acc + 2 ** cur
+    const indicesValue = selectedValues.values().reduce((playerValuesSum, playerValue) => {
+      return playerValuesSum + 2 ** playerValue
     }, 0)
 
-    console.log('indicesValue', indicesValue)
-
-    const resultString = `tv_listen_voice_indices ${indicesValue}`
-
-    set({ resultString })
+    set({ resultString: `tv_listen_voice_indices ${indicesValue}` })
   },
   goToSelectPage: (): void => {
     get().parseString()
-    const players = get().players
 
-    console.log('players', players)
+    if (Object.keys(get().players).length !== 10) {
+      toast.error('Не удалось получить данные всех десяти игроков, проверьте ввод')
+
+      return
+    }
 
     set({ appState: AppState.Select })
   },
@@ -114,11 +106,9 @@ export const useStore = create<StoreState>((set, get) => ({
 
     set({ appState: AppState.Result })
   },
-  copyResult: (): void => {
-    // console.log('clipboard', clipboard)
-    // clipboard.writeText(get().resultString)
+  copyResult: async (): Promise<void> => {
+    await navigator.clipboard.writeText(get().resultString)
+
+    toast.success('Команда скопирована')
   }
-  // increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  // removeAllBears: () => set({ bears: 0 }),
-  // updateBears: (newBears) => set({ bears: newBears }),
 }))

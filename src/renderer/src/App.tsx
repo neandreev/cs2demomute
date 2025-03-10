@@ -10,9 +10,13 @@ const componentByAppState = {
 }
 
 function App(): JSX.Element {
-  const {appState} = useStore()
+  const { appState } = useStore()
 
-  return componentByAppState[appState]
+  return (
+    <div className="h-screen flex items-center justify-center w-2xl">
+      <div className="rounded-xl bg-muted/50 p-4 flex items-center justify-center">{componentByAppState[appState]}</div>
+    </div>
+  )
 }
 
 export default App
