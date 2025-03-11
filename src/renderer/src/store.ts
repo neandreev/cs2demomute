@@ -1,3 +1,4 @@
+import i18next from 'i18next'
 import { create } from 'zustand'
 import { toast } from 'sonner'
 
@@ -23,6 +24,7 @@ interface StoreState {
   toggleSelectedValue: (value: number) => void
   parseString: () => void
   generateResultString: () => void
+  goToInputPage: () => void
   goToSelectPage: () => void
   goToResultPage: () => void
   copyResult: () => void
@@ -90,11 +92,20 @@ export const useStore = create<StoreState>((set, get) => ({
 
     set({ resultString: `tv_listen_voice_indices ${indicesValue}` })
   },
+  goToInputPage: (): void => {
+    set({
+      appState: AppState.Input,
+      stringToParse: '',
+      players: {},
+      selectedValues: new Set([]),
+      resultString: ''
+    })
+  },
   goToSelectPage: (): void => {
     get().parseString()
 
     if (Object.keys(get().players).length !== 10) {
-      toast.error('Не удалось получить данные всех десяти игроков, проверьте ввод')
+      toast.error(i18next.t('incorrectInput'))
 
       return
     }
@@ -104,11 +115,17 @@ export const useStore = create<StoreState>((set, get) => ({
   goToResultPage: (): void => {
     get().generateResultString()
 
+    if (get().selectedValues.size === 0) {
+      toast.error(i18next.t('atLeastOne'))
+
+      return
+    }
+
     set({ appState: AppState.Result })
   },
   copyResult: async (): Promise<void> => {
     await navigator.clipboard.writeText(get().resultString)
 
-    toast.success('Команда скопирована')
+    toast.success(i18next.t('copied'))
   }
 }))

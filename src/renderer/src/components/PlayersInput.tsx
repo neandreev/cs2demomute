@@ -1,3 +1,5 @@
+import i18next from 'i18next'
+
 import { useStore } from '@renderer/store'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
@@ -21,9 +23,11 @@ const PlayersInput = (): JSX.Element => {
 
   return (
     <div className="flex flex-col gap-4">
-      <p>Результат выполнения команды &apos;voice_show_mute&apos;:</p>
+      <p>{i18next.t('enterString')}:</p>
       <div className="flex gap-4">
         <Textarea
+          autoFocus
+          spellCheck={false}
           placeholder={placeholder}
           className="resize-none min-h-84"
           value={stringToParse}
@@ -32,7 +36,7 @@ const PlayersInput = (): JSX.Element => {
       </div>
       <div className="flex justify-end">
         <Button variant="outline" className="w-16" onClick={() => goToSelectPage()}>
-          Далее
+          {i18next.t('next')}
         </Button>
       </div>
     </div>

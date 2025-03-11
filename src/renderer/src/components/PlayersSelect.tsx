@@ -1,3 +1,5 @@
+import i18next from 'i18next'
+
 import { useStore } from '@renderer/store'
 import { Button } from './ui/button'
 
@@ -6,7 +8,7 @@ const PlayersSelect = (): JSX.Element => {
 
   return (
     <div className="flex flex-col gap-4">
-      <p>Выберите игроков:</p>
+      <p>{i18next.t('selectPlayers')}:</p>
       <div className="flex">
         <div className="grid grid-cols-2 w-l gap-2">
           {Object.entries(players).map(([playerName, playerValue]) => {
@@ -27,7 +29,7 @@ const PlayersSelect = (): JSX.Element => {
       </div>
       <div className="flex justify-end">
         <Button variant="outline" className="w-16" onClick={() => goToResultPage()}>
-          Далее
+          {i18next.t('next')}
         </Button>
       </div>
     </div>
