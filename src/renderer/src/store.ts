@@ -41,19 +41,7 @@ const splitPlayersMuteValues = (stringArr): Players => {
 
 export const useStore = create<StoreState>((set, get) => ({
   appState: AppState.Input,
-  stringToParse: `Player#     Player Name
-  -------     ----------------
-    3         donk666
-    4         MaSvAl
-    5         Koriw
-    6         -FpSSSSSSSSS
-    7         tENZY
-    8         Aliot
-    9         Sp4rkesss
-    10         NoBless
-    11         NAPAD
-    12         EATyourEGO
-  -------     ----------------`,
+  stringToParse: '',
   players: {},
   selectedValues: new Set([]),
   resultString: '',
