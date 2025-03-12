@@ -24,6 +24,8 @@ interface StoreState {
   toggleSelectedValue: (value: number) => void
   parseString: () => void
   generateResultString: () => void
+  goToNextPage: () => void
+  goToPreviousPage: () => void
   goToInputPage: () => void
   goToSelectPage: () => void
   goToResultPage: () => void
@@ -41,7 +43,19 @@ const splitPlayersMuteValues = (stringArr): Players => {
 
 export const useStore = create<StoreState>((set, get) => ({
   appState: AppState.Input,
-  stringToParse: '',
+  stringToParse: `Player#     Player Name
+  -------     ----------------
+    3         donk666
+    4         MaSvAl
+    5         Koriw
+    6         -FpSSSSSSSSS
+    7         tENZY
+    8         Aliot
+    9         Sp4rkesss
+    10         NoBless
+    11         NAPAD
+    12         EATyourEGO
+  -------     ----------------`,
   players: {},
   selectedValues: new Set([]),
   resultString: '',
@@ -80,6 +94,25 @@ export const useStore = create<StoreState>((set, get) => ({
 
     set({ resultString: `tv_listen_voice_indices ${indicesValue}` })
   },
+  goToNextPage: (): void => {
+    const appState = get().appState
+
+    const nextPageByAppState = {
+      [AppState.Input]: get().goToSelectPage,
+      [AppState.Select]: get().goToResultPage
+    }[appState]
+
+    nextPageByAppState()
+  },
+  goToPreviousPage: (): void => {
+    const appState = get().appState
+
+    if (appState === AppState.Input) return
+
+    set({
+      appState: appState - 1
+    })
+  },
   goToInputPage: (): void => {
     set({
       appState: AppState.Input,
@@ -98,7 +131,7 @@ export const useStore = create<StoreState>((set, get) => ({
       return
     }
 
-    set({ appState: AppState.Select })
+    set({ appState: AppState.Select, selectedValues: new Set([]) })
   },
   goToResultPage: (): void => {
     get().generateResultString()

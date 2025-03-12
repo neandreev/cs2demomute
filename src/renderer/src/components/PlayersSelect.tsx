@@ -1,15 +1,19 @@
 import i18next from 'i18next'
 
 import { useStore } from '@renderer/store'
-import { Button } from './ui/button'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 const PlayersSelect = (): JSX.Element => {
-  const { players, goToResultPage, selectedValues, toggleSelectedValue } = useStore()
+  const { players, selectedValues, toggleSelectedValue } = useStore()
 
   return (
-    <div className="flex flex-col gap-4">
-      <p>{i18next.t('selectPlayers')}:</p>
-      <div className="flex">
+    <Card>
+      <CardHeader>
+        <CardTitle>{i18next.t('selectPlayers')}</CardTitle>
+        <CardDescription>{i18next.t('selectPlayersDesc')}</CardDescription>
+      </CardHeader>
+      <CardContent>
         <div className="grid grid-cols-2 w-l gap-2">
           {Object.entries(players).map(([playerName, playerValue]) => {
             const isButtonSelected = selectedValues.has(playerValue)
@@ -26,13 +30,8 @@ const PlayersSelect = (): JSX.Element => {
             )
           })}
         </div>
-      </div>
-      <div className="flex justify-end">
-        <Button variant="outline" className="w-16" onClick={() => goToResultPage()}>
-          {i18next.t('next')}
-        </Button>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
 

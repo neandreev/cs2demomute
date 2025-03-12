@@ -1,8 +1,8 @@
 import i18next from 'i18next'
 
 import { useStore } from '@renderer/store'
-import { Textarea } from './ui/textarea'
-import { Button } from './ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 const placeholder = `Player#     Player Name
   -------     ----------------
@@ -19,27 +19,24 @@ const placeholder = `Player#     Player Name
   -------     ----------------`
 
 const PlayersInput = (): JSX.Element => {
-  const { stringToParse, setStringToParse, goToSelectPage } = useStore()
+  const { stringToParse, setStringToParse } = useStore()
 
   return (
-    <div className="flex flex-col gap-4">
-      <p>{i18next.t('enterString')}:</p>
-      <div className="flex gap-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>{i18next.t('enterString')}</CardTitle>
+        <CardDescription>{i18next.t('enterStringDesc')}</CardDescription>
+      </CardHeader>
+      <CardContent>
         <Textarea
-          autoFocus
           spellCheck={false}
           placeholder={placeholder}
-          className="resize-none min-h-84"
+          className="resize-none min-h-74"
           value={stringToParse}
           onChange={(e) => setStringToParse(e.currentTarget.value)}
         />
-      </div>
-      <div className="flex justify-end">
-        <Button variant="outline" className="w-16" onClick={() => goToSelectPage()}>
-          {i18next.t('next')}
-        </Button>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
 

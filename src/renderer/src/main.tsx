@@ -15,12 +15,16 @@ i18next.use(LanguageDetector).init({
         next: 'Next',
         copy: 'Copy',
         again: 'Start again',
+        back: 'Back',
         copied: 'The command is copied',
         enterString: "Enter 'voice_show_mute' command output",
+        enterStringDesc: 'Use the command in console and copy result',
         selectPlayers: 'Select players',
-        incorrectInput: "Couldn't find all 10 players data, check input",
+        selectPlayersDesc: "Which player's voices you need to hear in demo",
+        incorrectInput: "Couldn't find data of all 10 players, ",
         atLeastOne: 'Select at least one player',
-        result: 'Result command'
+        result: 'Result command',
+        resultDesc: 'Run it in the console'
       }
     },
     ru: {
@@ -28,12 +32,16 @@ i18next.use(LanguageDetector).init({
         next: 'Далее',
         copy: 'Скопировать',
         again: 'Начать заново',
+        back: 'Назад',
         copied: 'Команда скопирована',
-        enterString: "Результат выполнения команды 'voice_show_mute'",
-        selectPlayers: 'Выберите игроков',
-        incorrectInput: 'Не удалось получить данные всех десяти игроков, проверьте ввод',
-        atLeastOne: 'Выберите хотя бы одного игрока',
-        result: 'Итоговая команда'
+        enterString: "Результат команды 'voice_show_mute'",
+        enterStringDesc: 'Используй команду в консоли и скопируй результат',
+        selectPlayers: 'Выбери игроков',
+        selectPlayersDesc: 'Голоса этих игроков будут слышны в демо',
+        incorrectInput: 'Не удалось получить данные всех десяти игроков, проверь ввод',
+        atLeastOne: 'Выбери хотя бы одного игрока',
+        result: 'Итоговая команда',
+        resultDesc: 'Используй её в консоли'
       }
     }
   }
