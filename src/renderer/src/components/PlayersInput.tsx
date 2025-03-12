@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 
-import { useStore } from '@renderer/store'
+import { useStore } from '@/store'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 

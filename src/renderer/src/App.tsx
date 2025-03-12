@@ -1,13 +1,13 @@
 import { RefreshCcw, ArrowLeft, ArrowRight } from 'lucide-react'
 
-import { ThemeProvider } from '@renderer/themeProvider'
+import { ThemeProvider } from '@/themeProvider'
 import PlayersInput from '@/components/PlayersInput'
 import PlayersSelect from '@/components/PlayersSelect'
 import Result from '@/components/Result'
+import ModeToggle from '@/components/ModeToggle'
 import { Button } from '@/components/ui/button'
 import { AppState, useStore } from './store'
 import i18next from 'i18next'
-import { ModeToggle } from './components/ModeToggle'
 
 const componentByAppState = {
   [AppState.Input]: <PlayersInput />,
@@ -15,7 +15,7 @@ const componentByAppState = {
   [AppState.Result]: <Result />
 }
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   const { appState, goToInputPage, goToPreviousPage, goToNextPage } = useStore()
 
   return (

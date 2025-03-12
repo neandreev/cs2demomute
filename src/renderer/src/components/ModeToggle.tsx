@@ -13,7 +13,7 @@ const oppositeTheme = {
   light: 'dark'
 }
 
-export function ModeToggle() {
+const ModeToggle = (): JSX.Element => {
   const { theme, setTheme } = useTheme()
 
   return (
@@ -22,3 +22,5 @@ export function ModeToggle() {
     </Button>
   )
 }
+
+export default ModeToggle
