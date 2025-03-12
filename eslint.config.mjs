@@ -25,7 +25,23 @@ export default tseslint.config(
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
       ...eslintPluginReactRefresh.configs.vite.rules,
-      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+      'react/jsx-max-props-per-line': [
+        'error',
+        { maximum: { single: 2, multi: 1, when: 'always' } }
+      ],
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+          'jsx-max-props-per-line': [
+            1,
+            {
+              maximum: { single: 2, multi: 1 },
+              when: 'always'
+            }
+          ]
+        }
+      ],
       'react-refresh/only-export-components': ['off']
     }
   },
