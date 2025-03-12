@@ -29,6 +29,7 @@ interface StoreState {
   goToInputPage: () => void
   goToSelectPage: () => void
   goToResultPage: () => void
+  copyCommand: () => void
   copyResult: () => void
 }
 
@@ -131,6 +132,11 @@ export const useStore = create<StoreState>((set, get) => ({
     }
 
     set({ appState: AppState.Result })
+  },
+  copyCommand: async (): Promise<void> => {
+    await navigator.clipboard.writeText('voice_show_mute')
+
+    toast.success(i18next.t('copied'))
   },
   copyResult: async (): Promise<void> => {
     await navigator.clipboard.writeText(get().resultString)
