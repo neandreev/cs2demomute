@@ -20,7 +20,7 @@ const App = (): JSX.Element => {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="h-screen flex items-center justify-center">
+      <div className="font-inter h-screen flex items-center justify-center">
         <div className="flex flex-col justify-start gap-4">
           {componentByAppState[appState]}
           <div className="flex justify-between gap-2 w-full">
