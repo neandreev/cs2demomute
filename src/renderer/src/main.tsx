@@ -2,6 +2,8 @@ import './assets/main.css'
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Analytics } from '@vercel/analytics/next'
+
 import App from './App'
 import { Toaster } from '@/components/ui/sonner'
 import i18next from 'i18next'
@@ -49,6 +51,7 @@ i18next.use(LanguageDetector).init({
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
+    <Analytics />
     <App />
     <Toaster position="top-center" />
   </React.StrictMode>
