@@ -26,7 +26,9 @@ i18next.use(LanguageDetector).init({
         incorrectInput: "Couldn't find data for all 10 players, check your input",
         atLeastOne: 'Select at least one player',
         result: 'The final command',
-        resultDesc: 'Run it in the console'
+        resultDesc: 'Run it in the console',
+        madeBy: 'made by',
+        sourceCode: 'source_code'
       }
     },
     ru: {
@@ -43,7 +45,9 @@ i18next.use(LanguageDetector).init({
         incorrectInput: 'Не удалось получить данные всех десяти игроков, проверь ввод',
         atLeastOne: 'Выбери хотя бы одного игрока',
         result: 'Итоговая команда',
-        resultDesc: 'Используй её в консоли'
+        resultDesc: 'Используй её в консоли',
+        madeBy: 'cделал',
+        sourceCode: 'исходный_код'
       }
     }
   }

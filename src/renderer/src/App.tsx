@@ -8,6 +8,7 @@ import ModeToggle from '@/components/ModeToggle'
 import { Button } from '@/components/ui/button'
 import { AppState, useStore } from './store'
 import i18next from 'i18next'
+import Footer from './components/Footer'
 
 const componentByAppState = {
   [AppState.Input]: <PlayersInput />,
@@ -20,8 +21,8 @@ const App = (): JSX.Element => {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="font-inter h-screen flex items-center justify-center">
-        <div className="flex flex-col justify-start gap-4">
+      <div className="font-inter h-screen flex flex-col items-center justify-center">
+        <div className="flex flex-grow flex-col justify-center gap-4">
           {componentByAppState[appState]}
           <div className="flex justify-between gap-2 w-full">
             <div className="flex gap-2">
@@ -47,6 +48,7 @@ const App = (): JSX.Element => {
             ) : null}
           </div>
         </div>
+        <Footer />
       </div>
     </ThemeProvider>
   )
